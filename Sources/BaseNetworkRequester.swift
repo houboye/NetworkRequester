@@ -41,9 +41,9 @@ public enum RequestParameterEncoder {
     case jsonPrettyPrinted
 }
 
-///  BaseRequest is the abstract class of network request. It provides many options
+///  BaseNetworkRequester is the abstract class of network request. It provides many options
 ///  for constructing request. It's the base class of `YTKRequest`.
-open class BaseRequest: NSObject {
+open class BaseNetworkRequester: NSObject {
     override public init() {
         super.init()
     }

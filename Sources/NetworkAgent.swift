@@ -9,7 +9,7 @@ class NetworkAgent: NSObject {
     static let agent = NetworkAgent()
     
     /// Add request to session and start it.
-    func add(_ request: BaseRequest) {
+    func add(_ request: BaseNetworkRequester) {
         if let customUrlRequest = request.buildCustomUrlRequest() {
             var dataTask: Request!
             dataTask = defaultSession.request(customUrlRequest).response { (response) in
@@ -26,7 +26,7 @@ class NetworkAgent: NSObject {
     }
     
     /// Cancel a request that was previously added.
-    func cancel(_ request: BaseRequest) {
+    func cancel(_ request: BaseNetworkRequester) {
         if request.resumableDownloadPath != nil {
             if let downloadTask = request.requestTask as? DownloadRequest {
                 let localUrl = incompleteDownloadTempPath(forDownloadPath: buildRequestUrl(request))
@@ -56,7 +56,7 @@ class NetworkAgent: NSObject {
     ///
     /// - Parameter request: request The request to parse. Should not be nil.
     /// - Returns: The result URL.
-    func buildRequestUrl(_ request: BaseRequest) -> String {
+    func buildRequestUrl(_ request: BaseNetworkRequester) -> String {
         var detailUrl = request.requestUrl()
         let tmp = URL(string: detailUrl)
         // If detailUrl is valid URL
@@ -95,12 +95,12 @@ class NetworkAgent: NSObject {
     private let config = DefaultNetworkConfig.config
     private var defaultSession: Session!
     private var xmlParserResponseSerialzier: XMLParser?
-    private var requestsRecord = [UUID: BaseRequest]()
+    private var requestsRecord = [UUID: BaseNetworkRequester]()
     private var processingQueue = DispatchQueue(label: "com.bynetwork.networkagent.processing")
     private var m_lock = pthread_mutex_t()
     private var allStatusCodes = IndexSet(integersIn: Range(NSRange(location: 100, length: 500))!)
     
-    private func requestEcoding(_ request: BaseRequest) -> ParameterEncoding {
+    private func requestEcoding(_ request: BaseNetworkRequester) -> ParameterEncoding {
         switch request.parameterEncoder() {
         case .urlDefault:
             return URLEncoding.default
@@ -115,7 +115,7 @@ class NetworkAgent: NSObject {
         }
     }
     
-    private func sessionTaskForRequest(_ request: BaseRequest) -> Request {
+    private func sessionTaskForRequest(_ request: BaseNetworkRequester) -> Request {
         let method = request.requestMethod()
         let url = buildRequestUrl(request)
         let param = request.requestArgument()
@@ -146,7 +146,7 @@ class NetworkAgent: NSObject {
         }
     }
     
-    private func validateResult(_ request: BaseRequest, error: inout Error?) -> Bool {
+    private func validateResult(_ request: BaseNetworkRequester, error: inout Error?) -> Bool {
         var result = request.isStatusCodeValidator()
         if !result {
             error = NSError(domain: RequestValidationErrorDomain, code: RequestValidationErrorInvalidStatusCode, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format"])
@@ -218,7 +218,7 @@ class NetworkAgent: NSObject {
         }
     }
     
-    private func processResponse(_ request: BaseRequest, response: Any) {
+    private func processResponse(_ request: BaseNetworkRequester, response: Any) {
         request.responseObject = response
         
         guard let resultData = response as? Data else {
@@ -276,11 +276,11 @@ class NetworkAgent: NSObject {
         }
     }
     
-    private func processError(_ request: BaseRequest, error: Error) {
+    private func processError(_ request: BaseNetworkRequester, error: Error) {
         requestDidFail(request, error: error)
     }
     
-    private func requestDidSucceed(_ request: BaseRequest) {
+    private func requestDidSucceed(_ request: BaseNetworkRequester) {
         autoreleasepool {
             request.requestCompletePreprocessor()
         }
@@ -296,7 +296,7 @@ class NetworkAgent: NSObject {
         }
     }
     
-    private func requestDidFail(_ request: BaseRequest, error: Error) {
+    private func requestDidFail(_ request: BaseNetworkRequester, error: Error) {
         request.error = error
         debugPrint("Request \(NSStringFromClass(request.classForCoder)) failed, status code = \(request.responseStatusCode), error = \(error.localizedDescription)")
         
@@ -333,13 +333,13 @@ class NetworkAgent: NSObject {
         }
     }
     
-    private func addRequestToRecord(_ request: BaseRequest) {
+    private func addRequestToRecord(_ request: BaseNetworkRequester) {
         lock()
         requestsRecord.updateValue(request, forKey: request.requestTask.id)
         unlock()
     }
     
-    private func removeRequestFromRecord(_ request: BaseRequest) {
+    private func removeRequestFromRecord(_ request: BaseNetworkRequester) {
         lock()
         requestsRecord.removeValue(forKey: request.requestTask.id)
         unlock()

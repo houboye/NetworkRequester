@@ -1,11 +1,11 @@
 import Foundation
 
-public typealias ChainCallback = (_ : ChainRequest, _: BaseRequest) -> ()
+public typealias ChainCallback = (_ : ChainRequest, _: BaseNetworkRequester) -> ()
 
 open class ChainRequest: NSObject, RequestProtocol {
     
     ///  All the requests are stored in this array.
-    private(set) var requestArray = [BaseRequest]()
+    private(set) var requestArray = [BaseNetworkRequester]()
     
     /// The delegate object of the chain request. Default is nil.
     weak public var delegate: ChainRequestProtocol?
@@ -49,7 +49,7 @@ open class ChainRequest: NSObject, RequestProtocol {
     /// - Parameters:
     ///   - request: The request to be chained.
     ///   - callBack: The finish callback
-    public func add(_ request: BaseRequest, callBack: ChainCallback?) {
+    public func add(_ request: BaseNetworkRequester, callBack: ChainCallback?) {
         requestArray.append(request)
         if callBack != nil {
             requestCallbackArray.append(callBack!)
@@ -60,13 +60,13 @@ open class ChainRequest: NSObject, RequestProtocol {
     
     override init() {
         super.init()
-        emptyCallback = { (chainRequest, baseRequest) in
+        emptyCallback = { (chainRequest, requester) in
             // do nothing
         }
     }
     
     /// RequestDelegate
-    public func requestFinished(_ request: BaseRequest) {
+    public func requestFinished(_ request: BaseNetworkRequester) {
         let currentRequestIndex = nextRequestIndex - 1
         let callBack = requestCallbackArray[currentRequestIndex]
         callBack(self, request)
@@ -78,7 +78,7 @@ open class ChainRequest: NSObject, RequestProtocol {
         }
     }
     
-    public func requestFailed(_ request: BaseRequest) {
+    public func requestFailed(_ request: BaseNetworkRequester) {
         toggleAccessoriesWillStopCallBack()
         delegate?.chainRequestFailed(self, failed: request)
         ChainRequestAgent.agent.removeChainRequest(self)

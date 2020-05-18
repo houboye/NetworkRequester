@@ -13,10 +13,10 @@ public enum RequestCacheError: Int {
 let RequestCacheErrorDomain = "com.houboye.request.caching"
 
 ///  NetworkRequest is the base class you should inherit to create your own request class.
-///  Based on BaseRequest, NetworkRequest adds local caching feature. Note download
+///  Based on BaseNetworkRequester, NetworkRequest adds local caching feature. Note download
 ///  request will not be cached whatsoever, because download request may involve complicated
 ///  cache control policy controlled by `Cache-Control`, `Last-Modified`, etc.
-open class SwiftNetworkRequest: BaseRequest {
+open class SwiftNetworkRequest: BaseNetworkRequester {
     
     ///  Whether to use cache as response or not.
     ///  Default is NO, which means caching will take effect with specific arguments.

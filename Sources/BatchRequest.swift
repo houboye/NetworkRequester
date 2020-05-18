@@ -106,7 +106,7 @@ open class BatchRequest: NSObject, RequestProtocol {
     }
     
     // MARK: Network Request Delegate
-    public func requestFailed(_ request: BaseRequest) {
+    public func requestFailed(_ request: BaseNetworkRequester) {
         failedRequest = request as? SwiftNetworkRequest
         toggleAccessoriesWillStopCallBack()
         // stop
@@ -123,7 +123,7 @@ open class BatchRequest: NSObject, RequestProtocol {
         BatchRequestAgent.agent.removeBatchRequest(self)
     }
     
-    public func requestFinished(_ request: BaseRequest) {
+    public func requestFinished(_ request: BaseNetworkRequester) {
         finishedCount += 1
         if finishedCount == requestArray.count {
             toggleAccessoriesWillStopCallBack()
