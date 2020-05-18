@@ -3,10 +3,10 @@ import Alamofire
 
 fileprivate let kNetworkIncompleteDownloadFolderName = "Incomplete"
 
-/// NetworkAgent is the underlying class that handles actual request generation,
+/// RequesterAgent is the underlying class that handles actual request generation,
 /// serialization and response handling.
-class NetworkAgent: NSObject {
-    static let agent = NetworkAgent()
+class RequesterAgent: NSObject {
+    static let agent = RequesterAgent()
     
     /// Add request to session and start it.
     func add(_ request: BaseNetworkRequester) {
@@ -92,11 +92,11 @@ class NetworkAgent: NSObject {
     }
     
     // MARK: - private
-    private let config = DefaultNetworkConfig.config
+    private let config = RequesterDefaultConfig.config
     private var defaultSession: Session!
     private var xmlParserResponseSerialzier: XMLParser?
     private var requestsRecord = [UUID: BaseNetworkRequester]()
-    private var processingQueue = DispatchQueue(label: "com.bynetwork.networkagent.processing")
+    private var processingQueue = DispatchQueue(label: "com.bynetwork.requesterAgent.processing")
     private var m_lock = pthread_mutex_t()
     private var allStatusCodes = IndexSet(integersIn: Range(NSRange(location: 100, length: 500))!)
     
@@ -155,7 +155,7 @@ class NetworkAgent: NSObject {
         let json = request.responseJSONObject
         let validator = request.jsonValidator()
         if json != nil && validator != nil {
-            result = NetworkUtils.validateJSON(json!, withValidator: validator!)
+            result = RequesterUtils.validateJSON(json!, withValidator: validator!)
             if !result {
                 error = NSError(domain: RequestValidationErrorDomain, code: RequestValidationErrorInvalidJSONFormat, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format"])
                 return result
@@ -225,7 +225,7 @@ class NetworkAgent: NSObject {
             return
         }
         request.responseData = resultData
-        request.responseString = String(data: resultData, encoding: NetworkUtils.stringEncoding(request))
+        request.responseString = String(data: resultData, encoding: RequesterUtils.stringEncoding(request))
         
         var serializationError: Error?
         var validationError: Error?
@@ -311,7 +311,7 @@ class NetworkAgent: NSObject {
             let url = request.responseObject as! URL
             if url.isFileURL && FileManager.default.fileExists(atPath: url.path) {
                 request.responseData = try? Data(contentsOf: url)
-                request.responseString = String(data: request.responseData!, encoding: NetworkUtils.stringEncoding(request))
+                request.responseString = String(data: request.responseData!, encoding: RequesterUtils.stringEncoding(request))
                 
                 try? FileManager.default.removeItem(at: url)
             }
@@ -428,7 +428,7 @@ class NetworkAgent: NSObject {
         
         let resumeDataFileExists = FileManager.default.fileExists(atPath: incompleteDownloadTempPath(forDownloadPath: urlString).path)
         let data = try? Data(contentsOf: incompleteDownloadTempPath(forDownloadPath: urlString))
-        let resumeDataIsValid = NetworkUtils.validateResumeData(data)
+        let resumeDataIsValid = RequesterUtils.validateResumeData(data)
         
         let canBeResumed = resumeDataFileExists && resumeDataIsValid
         
@@ -474,7 +474,7 @@ class NetworkAgent: NSObject {
     }
     
     func incompleteDownloadTempPath(forDownloadPath path:String) -> URL {
-        let md5URLString = NetworkUtils.md5StringFromString(path)
+        let md5URLString = RequesterUtils.md5StringFromString(path)
         let tempPath = incompleteDownloadTempCacheFolder().appending("/\(md5URLString)")
         return URL(fileURLWithPath: tempPath)
     }

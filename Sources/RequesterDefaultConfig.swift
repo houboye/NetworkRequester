@@ -20,10 +20,10 @@ public protocol CacheDirPathFilterProtocol {
     func filterCacheDirPath(_ originPath: String, request: BaseNetworkRequester) -> String
 }
 
-///  NetworkConfig stored global network-related configurations, which will be used in `NetworkAgent`
+///  NetworkConfig stored global network-related configurations, which will be used in `RequesterAgent`
 ///  to form and filter requests, as well as caching response.
-public class DefaultNetworkConfig: NSObject {
-    public static let config = DefaultNetworkConfig()
+public class RequesterDefaultConfig: NSObject {
+    public static let config = RequesterDefaultConfig()
     
     /// Request base URL, such as "http://www.example.com". Default is empty string.
     public var baseUrl = ""

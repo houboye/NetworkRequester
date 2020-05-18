@@ -2,7 +2,7 @@ import Foundation
 
 public typealias ChainCallback = (_ : ChainRequest, _: BaseNetworkRequester) -> ()
 
-open class ChainRequest: NSObject, RequestProtocol {
+open class ChainRequest: NSObject, RequesterProtocol {
     
     ///  All the requests are stored in this array.
     private(set) var requestArray = [BaseNetworkRequester]()

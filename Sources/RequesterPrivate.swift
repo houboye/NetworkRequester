@@ -5,7 +5,7 @@ func BYLog(_ items: Any...) {
     debugPrint(items)
 }
 
-class NetworkUtils {
+class RequesterUtils {
     class func validateJSON(_ json: Any, withValidator jsonValidator: Any) -> Bool {
         if json is [AnyHashable: Any] &&
             jsonValidator is [AnyHashable: Any] {

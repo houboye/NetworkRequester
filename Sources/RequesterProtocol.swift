@@ -11,7 +11,7 @@ public typealias RequestCompletionBlock = (_ : BaseNetworkRequester)->()
 /// The RequestDelegate protocol defines several optional methods you can use
 /// to receive network-related messages. All the delegate methods will be called
 /// on the main queue.
-public protocol RequestProtocol: class {
+public protocol RequesterProtocol: class {
     /// Tell the delegate that the request has finished successfully.
     ///
     /// - Parameter request: request The corresponding request.
@@ -23,7 +23,7 @@ public protocol RequestProtocol: class {
     func requestFailed(_ request: BaseNetworkRequester)
 }
 
-extension RequestProtocol {
+extension RequesterProtocol {
     func requestFinished(_ request: BaseNetworkRequester) { }
     func requestFailed(_ request: BaseNetworkRequester) { }
 }
