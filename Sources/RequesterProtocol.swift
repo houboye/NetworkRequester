@@ -5,27 +5,27 @@ public typealias UploadMultipartFormData = MultipartFormData
 
 public typealias ConstructingBlock = (_ : UploadMultipartFormData)->()
 public typealias URLSessionTaskProgressBlock = (_ :Progress)->()
-public typealias RequestCompletionBlock = (_ : BaseRequest)->()
+public typealias RequestCompletionBlock = (_ : BaseNetworkRequester)->()
 
 
 /// The RequestDelegate protocol defines several optional methods you can use
 /// to receive network-related messages. All the delegate methods will be called
 /// on the main queue.
-public protocol RequestProtocol: class {
+public protocol RequesterProtocol: class {
     /// Tell the delegate that the request has finished successfully.
     ///
     /// - Parameter request: request The corresponding request.
-    func requestFinished(_ request: BaseRequest)
+    func requestFinished(_ request: BaseNetworkRequester)
     
     /// Tell the delegate that the request has failed.
     ///
     /// - Parameter request: request The corresponding request.
-    func requestFailed(_ request: BaseRequest)
+    func requestFailed(_ request: BaseNetworkRequester)
 }
 
-extension RequestProtocol {
-    func requestFinished(_ request: BaseRequest) { }
-    func requestFailed(_ request: BaseRequest) { }
+extension RequesterProtocol {
+    func requestFinished(_ request: BaseNetworkRequester) { }
+    func requestFailed(_ request: BaseNetworkRequester) { }
 }
 
 ///  The RequestAccessory protocol defines several optional methods that can be

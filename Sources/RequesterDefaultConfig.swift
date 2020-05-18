@@ -7,7 +7,7 @@ public protocol UrlFilterProtocol {
     ///   - originUrl: originUrl request's origin URL, which is returned by `requestUrl`
     ///   - request: request   request itself
     /// - Returns: A new url which will be used as a new `requestUrl`
-    func filterUrl(_ originUrl: String, request: BaseRequest) -> String
+    func filterUrl(_ originUrl: String, request: BaseNetworkRequester) -> String
 }
 
 public protocol CacheDirPathFilterProtocol {
@@ -17,13 +17,13 @@ public protocol CacheDirPathFilterProtocol {
     ///   - originPath: originPath original base cache path, which is generated in `Request` class.
     ///   - request: request    request itself
     /// - Returns: A new path which will be used as base path when caching.
-    func filterCacheDirPath(_ originPath: String, request: BaseRequest) -> String
+    func filterCacheDirPath(_ originPath: String, request: BaseNetworkRequester) -> String
 }
 
-///  NetworkConfig stored global network-related configurations, which will be used in `NetworkAgent`
+///  NetworkConfig stored global network-related configurations, which will be used in `RequesterAgent`
 ///  to form and filter requests, as well as caching response.
-public class DefaultNetworkConfig: NSObject {
-    public static let config = DefaultNetworkConfig()
+public class RequesterDefaultConfig: NSObject {
+    public static let config = RequesterDefaultConfig()
     
     /// Request base URL, such as "http://www.example.com". Default is empty string.
     public var baseUrl = ""

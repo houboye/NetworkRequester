@@ -41,9 +41,9 @@ public enum RequestParameterEncoder {
     case jsonPrettyPrinted
 }
 
-///  BaseRequest is the abstract class of network request. It provides many options
+///  BaseNetworkRequester is the abstract class of network request. It provides many options
 ///  for constructing request. It's the base class of `YTKRequest`.
-open class BaseRequest: NSObject {
+open class BaseNetworkRequester: NSObject {
     override public init() {
         super.init()
     }
@@ -120,7 +120,7 @@ open class BaseRequest: NSObject {
     
     /// The delegate object of the request. If you choose block style callback you can ignore this.
     /// Default is nil.
-    weak public var delegate: RequestProtocol?
+    weak public var delegate: RequesterProtocol?
     
     /// The success callback. Note if this value is not nil and `requestFinished` delegate method is
     /// also implemented, both will be executed but delegate method is first called. This block
@@ -178,14 +178,14 @@ open class BaseRequest: NSObject {
     /// Append self to request queue and start the request.
     public func start() {
         toggleAccessoriesWillStartCallBack()
-        NetworkAgent.agent.add(self)
+        RequesterAgent.agent.add(self)
     }
     
     /// Remove self from request queue and cancel the request.
     public func stop() {
         toggleAccessoriesWillStopCallBack()
         delegate = nil
-        NetworkAgent.agent.cancel(self)
+        RequesterAgent.agent.cancel(self)
         toggleAccessoriesDidStopCallBack()
     }
     

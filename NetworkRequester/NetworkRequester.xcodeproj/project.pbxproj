@@ -20,12 +20,12 @@
 		A2BD2FFC2472609E008B8692 /* BatchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF02472609D008B8692 /* BatchRequest.swift */; };
 		A2BD2FFD2472609E008B8692 /* ChainRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF12472609E008B8692 /* ChainRequestProtocol.swift */; };
 		A2BD2FFE2472609E008B8692 /* BatchRequestAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF22472609E008B8692 /* BatchRequestAgent.swift */; };
-		A2BD2FFF2472609E008B8692 /* DefaultNetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF32472609E008B8692 /* DefaultNetworkConfig.swift */; };
-		A2BD30002472609E008B8692 /* SwiftNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF42472609E008B8692 /* SwiftNetworkRequest.swift */; };
-		A2BD30012472609E008B8692 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF52472609E008B8692 /* NetworkAgent.swift */; };
-		A2BD30022472609E008B8692 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF62472609E008B8692 /* BaseRequest.swift */; };
-		A2BD30032472609E008B8692 /* NetworkPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF72472609E008B8692 /* NetworkPrivate.swift */; };
-		A2BD30042472609E008B8692 /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF82472609E008B8692 /* RequestProtocol.swift */; };
+		A2BD2FFF2472609E008B8692 /* RequesterDefaultConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF32472609E008B8692 /* RequesterDefaultConfig.swift */; };
+		A2BD30002472609E008B8692 /* NetworkRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF42472609E008B8692 /* NetworkRequester.swift */; };
+		A2BD30012472609E008B8692 /* RequesterAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF52472609E008B8692 /* RequesterAgent.swift */; };
+		A2BD30022472609E008B8692 /* BaseNetworkRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF62472609E008B8692 /* BaseNetworkRequester.swift */; };
+		A2BD30032472609E008B8692 /* RequesterPrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF72472609E008B8692 /* RequesterPrivate.swift */; };
+		A2BD30042472609E008B8692 /* RequesterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BD2FF82472609E008B8692 /* RequesterProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,12 +43,12 @@
 		A2BD2FF02472609D008B8692 /* BatchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchRequest.swift; sourceTree = "<group>"; };
 		A2BD2FF12472609E008B8692 /* ChainRequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainRequestProtocol.swift; sourceTree = "<group>"; };
 		A2BD2FF22472609E008B8692 /* BatchRequestAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchRequestAgent.swift; sourceTree = "<group>"; };
-		A2BD2FF32472609E008B8692 /* DefaultNetworkConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultNetworkConfig.swift; sourceTree = "<group>"; };
-		A2BD2FF42472609E008B8692 /* SwiftNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNetworkRequest.swift; sourceTree = "<group>"; };
-		A2BD2FF52472609E008B8692 /* NetworkAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
-		A2BD2FF62472609E008B8692 /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
-		A2BD2FF72472609E008B8692 /* NetworkPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkPrivate.swift; sourceTree = "<group>"; };
-		A2BD2FF82472609E008B8692 /* RequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
+		A2BD2FF32472609E008B8692 /* RequesterDefaultConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequesterDefaultConfig.swift; sourceTree = "<group>"; };
+		A2BD2FF42472609E008B8692 /* NetworkRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequester.swift; sourceTree = "<group>"; };
+		A2BD2FF52472609E008B8692 /* RequesterAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequesterAgent.swift; sourceTree = "<group>"; };
+		A2BD2FF62472609E008B8692 /* BaseNetworkRequester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNetworkRequester.swift; sourceTree = "<group>"; };
+		A2BD2FF72472609E008B8692 /* RequesterPrivate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequesterPrivate.swift; sourceTree = "<group>"; };
+		A2BD2FF82472609E008B8692 /* RequesterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequesterProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,18 +66,18 @@
 		A20B39BC24723F7A0051901A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A2BD2FF62472609E008B8692 /* BaseRequest.swift */,
+				A2BD2FF62472609E008B8692 /* BaseNetworkRequester.swift */,
+				A2BD2FF42472609E008B8692 /* NetworkRequester.swift */,
+				A2BD2FF32472609E008B8692 /* RequesterDefaultConfig.swift */,
+				A2BD2FF52472609E008B8692 /* RequesterAgent.swift */,
+				A2BD2FF82472609E008B8692 /* RequesterProtocol.swift */,
+				A2BD2FF72472609E008B8692 /* RequesterPrivate.swift */,
 				A2BD2FF02472609D008B8692 /* BatchRequest.swift */,
 				A2BD2FF22472609E008B8692 /* BatchRequestAgent.swift */,
 				A2BD2FED2472609D008B8692 /* BatchRequestProtocol.swift */,
 				A2BD2FEF2472609D008B8692 /* ChainRequest.swift */,
 				A2BD2FEE2472609D008B8692 /* ChainRequestAgent.swift */,
 				A2BD2FF12472609E008B8692 /* ChainRequestProtocol.swift */,
-				A2BD2FF32472609E008B8692 /* DefaultNetworkConfig.swift */,
-				A2BD2FF52472609E008B8692 /* NetworkAgent.swift */,
-				A2BD2FF72472609E008B8692 /* NetworkPrivate.swift */,
-				A2BD2FF82472609E008B8692 /* RequestProtocol.swift */,
-				A2BD2FF42472609E008B8692 /* SwiftNetworkRequest.swift */,
 			);
 			name = Sources;
 			path = ../../Sources;
@@ -193,19 +193,19 @@
 			files = (
 				A219B62324723B8B00865C92 /* ViewController.swift in Sources */,
 				A219B61F24723B8B00865C92 /* AppDelegate.swift in Sources */,
-				A2BD30032472609E008B8692 /* NetworkPrivate.swift in Sources */,
-				A2BD30012472609E008B8692 /* NetworkAgent.swift in Sources */,
-				A2BD2FFF2472609E008B8692 /* DefaultNetworkConfig.swift in Sources */,
+				A2BD30032472609E008B8692 /* RequesterPrivate.swift in Sources */,
+				A2BD30012472609E008B8692 /* RequesterAgent.swift in Sources */,
+				A2BD2FFF2472609E008B8692 /* RequesterDefaultConfig.swift in Sources */,
 				A2BD2FFE2472609E008B8692 /* BatchRequestAgent.swift in Sources */,
 				A2BD2FFC2472609E008B8692 /* BatchRequest.swift in Sources */,
 				A2BD2FFD2472609E008B8692 /* ChainRequestProtocol.swift in Sources */,
 				A2BD2FF92472609E008B8692 /* BatchRequestProtocol.swift in Sources */,
-				A2BD30042472609E008B8692 /* RequestProtocol.swift in Sources */,
+				A2BD30042472609E008B8692 /* RequesterProtocol.swift in Sources */,
 				A2BD2FFA2472609E008B8692 /* ChainRequestAgent.swift in Sources */,
 				A219B62124723B8B00865C92 /* SceneDelegate.swift in Sources */,
 				A2BD2FFB2472609E008B8692 /* ChainRequest.swift in Sources */,
-				A2BD30022472609E008B8692 /* BaseRequest.swift in Sources */,
-				A2BD30002472609E008B8692 /* SwiftNetworkRequest.swift in Sources */,
+				A2BD30022472609E008B8692 /* BaseNetworkRequester.swift in Sources */,
+				A2BD30002472609E008B8692 /* NetworkRequester.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

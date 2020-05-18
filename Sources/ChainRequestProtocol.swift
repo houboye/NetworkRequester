@@ -22,7 +22,7 @@ public protocol ChainRequestProtocol: class {
     /// Tell the delegate that the chain request has failed.
     ///
     /// - Parameter chainRequest: The corresponding chain request.
-    func chainRequestFailed(_ chainRequest: ChainRequest, failed baseRequest: BaseRequest)
+    func chainRequestFailed(_ chainRequest: ChainRequest, failed requester: BaseNetworkRequester)
 }
 
 extension ChainRequestProtocol {
@@ -30,7 +30,7 @@ extension ChainRequestProtocol {
         /// do nothing
     }
     
-    func chainRequestFailed(_ chainRequest: ChainRequest, failed baseRequest: BaseRequest) {
+    func chainRequestFailed(_ chainRequest: ChainRequest, failed requester: BaseNetworkRequester) {
         /// do nothing
     }
 }

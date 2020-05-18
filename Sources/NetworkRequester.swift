@@ -13,10 +13,10 @@ public enum RequestCacheError: Int {
 let RequestCacheErrorDomain = "com.houboye.request.caching"
 
 ///  NetworkRequest is the base class you should inherit to create your own request class.
-///  Based on BaseRequest, NetworkRequest adds local caching feature. Note download
+///  Based on BaseNetworkRequester, NetworkRequest adds local caching feature. Note download
 ///  request will not be cached whatsoever, because download request may involve complicated
 ///  cache control policy controlled by `Cache-Control`, `Last-Modified`, etc.
-open class SwiftNetworkRequest: BaseRequest {
+open class NetworkRequester: BaseNetworkRequester {
     
     ///  Whether to use cache as response or not.
     ///  Default is NO, which means caching will take effect with specific arguments.
@@ -73,9 +73,9 @@ open class SwiftNetworkRequest: BaseRequest {
                 let matedata = CacheMetadata()
                 matedata.version = cacheVersion()
                 //            matedata.sensitiveDataString = (cacheSensitiveData() as! NSObject).description
-                matedata.stringEncoding = NetworkUtils.stringEncoding(self)
+                matedata.stringEncoding = RequesterUtils.stringEncoding(self)
                 matedata.creationDate = Date()
-                matedata.appVersionString = NetworkUtils.appVersionString()
+                matedata.appVersionString = RequesterUtils.appVersionString()
                 let tmp = try NSKeyedArchiver.archivedData(withRootObject: matedata, requiringSecureCoding: true)
                 try tmp.write(to: URL(fileURLWithPath: cacheMetadataFilePath()))
             } catch let err {
@@ -224,7 +224,7 @@ open class SwiftNetworkRequest: BaseRequest {
     }
 }
 
-extension SwiftNetworkRequest {
+extension NetworkRequester {
     private func loadCacheMetadata() -> Bool {
         let path = cacheMetadataFilePath()
         let fileManager = FileManager.default
@@ -264,7 +264,7 @@ extension SwiftNetworkRequest {
         }
         // App version
         let appVersionString = cacheMetadata.appVersionString
-        let currentAppVersionString = NetworkUtils.appVersionString()
+        let currentAppVersionString = RequesterUtils.appVersionString()
         if appVersionString != nil || currentAppVersionString != nil {
             if appVersionString!.count != currentAppVersionString!.count || appVersionString != currentAppVersionString {
                 return NSError(domain: RequestCacheErrorDomain, code: RequestCacheError.appVersionMismatch.rawValue, userInfo: [NSLocalizedDescriptionKey: "App version mismatch"])
@@ -317,7 +317,7 @@ extension SwiftNetworkRequest {
     private func createBaseDirectory(atPath: String) {
         do {
             try FileManager.default.createDirectory(atPath: atPath, withIntermediateDirectories: true, attributes: nil)
-            NetworkUtils.addDoNotBackupAttribute(atPath)
+            RequesterUtils.addDoNotBackupAttribute(atPath)
         } catch let error {
             debugPrint("create cache directory failed, error = %@", error)
         }
@@ -332,10 +332,10 @@ extension SwiftNetworkRequest {
     
     private func cacheFileName() -> String {
         let _requestUrl = requestUrl()
-        let baseUrl = DefaultNetworkConfig.config.baseUrl
+        let baseUrl = RequesterDefaultConfig.config.baseUrl
         let argument = cacheFileNameFilterForRequestArgument(requestArgument() as Any)
         let requestInfo = "Method:\(requestMethod()) Host:\(baseUrl) Url:\(_requestUrl) Argument:\(argument)"
-        let cacheFileName = NetworkUtils.md5StringFromString(requestInfo)
+        let cacheFileName = RequesterUtils.md5StringFromString(requestInfo)
         
         return cacheFileName
     }
@@ -352,7 +352,7 @@ extension SwiftNetworkRequest {
         var path = pathOfLibrary + "/LazyRequestCache"
         
         // Filter cache base path
-        let filters = DefaultNetworkConfig.config.cacheDirPathFilters
+        let filters = RequesterDefaultConfig.config.cacheDirPathFilters
         for f in filters {
             path = f.filterCacheDirPath(path, request: self)
         }

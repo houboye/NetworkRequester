@@ -5,7 +5,7 @@ func BYLog(_ items: Any...) {
     debugPrint(items)
 }
 
-class NetworkUtils {
+class RequesterUtils {
     class func validateJSON(_ json: Any, withValidator jsonValidator: Any) -> Bool {
         if json is [AnyHashable: Any] &&
             jsonValidator is [AnyHashable: Any] {
@@ -75,7 +75,7 @@ class NetworkUtils {
         return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
     }
     
-    class func stringEncoding(_ request: BaseRequest) -> String.Encoding {
+    class func stringEncoding(_ request: BaseNetworkRequester) -> String.Encoding {
         var stringEncoding = String.Encoding.utf8
         if let textEncodingName = request.response?.textEncodingName {
             let encoding = CFStringConvertIANACharSetNameToEncoding(textEncodingName as CFString)
@@ -103,7 +103,7 @@ class NetworkUtils {
     }
 }
 
-extension BaseRequest {
+extension BaseNetworkRequester {
     // MARK: - RequestAccessory
     func toggleAccessoriesWillStartCallBack() {
         for accessory in requestAccessories {
